@@ -55,7 +55,7 @@ check_dependencies() {
   if ! command -v docker-compose >/dev/null 2>&1; then
     echo -e "${RED}Error: Docker Compose is not installed${NC}"
     exit 1
-  }
+  fi
   
   # Check if Docker daemon is running
   if ! docker info >/dev/null 2>&1; then
@@ -76,6 +76,10 @@ echo -e "${GREEN}🚀 Starting deployment of $APP_NAME${NC}"
 
 # Check dependencies
 check_dependencies
+
+# Prompt for port
+read -p "Enter the port to expose the website on the network (default: 8081): " PORT_INPUT
+PORT=${PORT_INPUT:-8081}
 
 # Find available port
 PORT=$(find_available_port)
